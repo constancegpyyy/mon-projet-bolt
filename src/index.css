@@ -1,0 +1,523 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lobster+Two:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  html {
+    font-family: 'Poppins', sans-serif;
+    @apply bg-background text-primary scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-primary antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-lobster font-bold text-primary;
+  }
+
+  p {
+    @apply text-secondary;
+  }
+
+  a {
+    @apply text-info hover:text-highlight transition-colors;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-accent/20 text-primary;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-white/5 dark:bg-black/5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-black/10 dark:bg-white/10 rounded-full hover:bg-black/20 dark:hover:bg-white/20 transition-colors;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    h1 {
+      @apply text-2xl md:text-3xl;
+    }
+    h2 {
+      @apply text-xl md:text-2xl;
+    }
+    h3 {
+      @apply text-lg md:text-xl;
+    }
+    .card {
+      @apply p-4 md:p-6;
+    }
+    .btn {
+      @apply px-4 py-2 text-sm md:px-6 md:py-3 md:text-base;
+    }
+    .prose {
+      @apply text-sm md:text-base;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-accent px-4 py-2 md:px-8 md:py-4 rounded-xl text-base md:text-lg font-semibold text-primary
+           relative overflow-hidden transition-all duration-300
+           hover:shadow-[0_0_20px_rgba(255,214,38,0.5)] hover:bg-highlight hover:text-white
+           active:scale-95 active:shadow-inner
+           disabled:opacity-50 disabled:cursor-not-allowed
+           focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+
+  .btn::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-accent to-highlight opacity-0 transition-opacity duration-300;
+  }
+
+  .btn:hover::before {
+    @apply opacity-100;
+  }
+
+  .card {
+    @apply relative rounded-xl bg-white/90 dark:bg-dark/90 p-4 md:p-8 shadow-lg
+           transition-all duration-500
+           hover:shadow-xl hover:-translate-y-1
+           before:absolute before:inset-0 before:-z-10
+           before:rounded-xl before:bg-gradient-to-br
+           before:from-accent/20 before:to-highlight/20
+           before:opacity-0 before:transition-opacity before:duration-300
+           hover:before:opacity-100;
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5
+           after:w-0 after:bg-accent after:transition-all after:duration-300
+           hover:after:w-full;
+  }
+
+  /* Mobile Navigation */
+  .mobile-nav {
+    @apply fixed inset-0 bg-white dark:bg-dark transform transition-transform duration-300 ease-in-out z-[60];
+  }
+
+  .mobile-nav.open {
+    @apply translate-x-0;
+  }
+
+  .mobile-nav.closed {
+    @apply -translate-x-full;
+  }
+
+  .mobile-nav-overlay {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-[55] transition-opacity duration-300;
+  }
+
+  .mobile-nav-overlay.open {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  .mobile-nav-overlay.closed {
+    @apply opacity-0 pointer-events-none;
+  }
+
+  .mobile-nav-content {
+    @apply h-full overflow-y-auto;
+  }
+
+  .mobile-nav-item {
+    @apply flex items-center gap-3 p-4 hover:bg-accent/20 transition-colors rounded-lg;
+  }
+
+  .mobile-nav-button {
+    @apply p-2 rounded-lg hover:bg-accent/20 transition-colors;
+  }
+
+  .mobile-menu-item {
+    @apply flex items-center space-x-2 px-4 py-3 hover:bg-accent/20 transition-colors;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-2 rounded-lg bg-white/50 dark:bg-dark/50 border border-black/10 dark:border-white/10
+           focus:ring-2 focus:ring-accent focus:border-transparent
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium mb-1;
+  }
+
+  .form-error {
+    @apply mt-1 text-sm text-error flex items-center gap-1;
+  }
+
+  /* Dropdown Menu */
+  .dropdown-menu {
+    @apply absolute right-0 mt-2 w-48 rounded-lg bg-white dark:bg-dark shadow-lg
+           transform opacity-0 scale-95 transition-all duration-200
+           origin-top-right pointer-events-none
+           focus:outline-none;
+  }
+
+  .dropdown-menu.active {
+    @apply opacity-100 scale-100 pointer-events-auto;
+  }
+
+  .dropdown-item {
+    @apply block w-full px-4 py-2 text-sm text-primary hover:bg-accent/20
+           transition-colors first:rounded-t-lg last:rounded-b-lg;
+  }
+
+  /* Mobile Search */
+  .mobile-search {
+    @apply fixed inset-x-0 top-16 z-40 bg-white dark:bg-dark p-4 transform transition-transform duration-300;
+  }
+
+  .mobile-search.open {
+    @apply translate-y-0;
+  }
+
+  .mobile-search.closed {
+    @apply -translate-y-full;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(239, 87, 65, 0.3),
+                 0 0 20px rgba(239, 87, 65, 0.2);
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply bg-white/20 dark:bg-dark/20 backdrop-blur-lg;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-highlight;
+  }
+
+  /* Mobile touch feedback */
+  .active-touch {
+    @apply active:bg-accent/20;
+  }
+
+  /* Safe area padding for mobile */
+  .safe-padding {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  /* Mobile grid adjustments */
+  @media (max-width: 640px) {
+    .grid-cols-auto-fit {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  }
+
+  /* Mobile spacing utilities */
+  @media (max-width: 640px) {
+    .mobile-py {
+      @apply py-4;
+    }
+    .mobile-px {
+      @apply px-4;
+    }
+    .mobile-m {
+      @apply m-2;
+    }
+    .mobile-p {
+      @apply p-2;
+    }
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
+}
+
+/* Page transitions */
+.slide-in-left, .slide-in-right {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-right {
+  transform: translateX(50px);
+}
+
+.slide-in-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Mobile menu animations */
+.mobile-menu-enter {
+  transform: translateX(-100%);
+}
+
+.mobile-menu-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms ease-in-out;
+}
+
+.mobile-menu-exit {
+  transform: translateX(0);
+}
+
+.mobile-menu-exit-active {
+  transform: translateX(-100%);
+  transition: transform 300ms ease-in-out;
+}
+
+/* Touch feedback animations */
+@keyframes touch-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.touch-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.touch-ripple::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: touch-ripple 0.6s linear;
+}
+
+/* Loading animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Typewriter effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: #FFD626 }
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid;
+  width: 0;
+  animation: 
+    typing 3.5s steps(40, end) forwards,
+    blink 0.75s step-end infinite;
+}
+
+/* Notification animations */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+.animate-slide-out-right {
+  animation: slide-out-right 0.3s ease-out forwards;
+}
+
+/* Dark mode transitions */
+.dark-mode-transition {
+  @apply transition-colors duration-300;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  /* Adjust font sizes */
+  html {
+    font-size: 14px;
+  }
+
+  /* Adjust spacing */
+  .container {
+    @apply px-4;
+  }
+
+  /* Adjust grid layouts */
+  .grid {
+    @apply grid-cols-1;
+  }
+
+  /* Adjust navigation */
+  .nav-links {
+    @apply hidden;
+  }
+
+  .mobile-nav-button {
+    @apply block;
+  }
+
+  /* Adjust cards */
+  .card {
+    @apply mx-4;
+  }
+
+  /* Adjust forms */
+  input, select, textarea {
+    @apply text-base;
+  }
+
+  /* Adjust buttons */
+  .btn {
+    @apply w-full justify-center;
+  }
+
+  /* Adjust modals */
+  .modal-content {
+    @apply mx-4 max-w-[calc(100%-2rem)];
+  }
+
+  /* Adjust tables */
+  table {
+    @apply block w-full overflow-x-auto;
+  }
+
+  /* Adjust images */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Adjust hero sections */
+  .hero {
+    @apply py-12;
+  }
+
+  /* Adjust footer */
+  footer {
+    @apply text-sm;
+  }
+}

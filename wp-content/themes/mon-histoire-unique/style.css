@@ -1,0 +1,74 @@
+/*
+Theme Name: Mon Histoire Unique
+Theme URI: https://monhistoireunique.com
+Author: Mon Histoire Unique
+Description: Thème personnalisé pour Mon Histoire Unique
+Version: 1.0
+*/
+
+/* Import des polices */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lobster+Two:wght@400;700&display=swap');
+
+/* Variables */
+:root {
+    --color-accent: #FFD626;
+    --color-highlight: #EF5741;
+    --color-dark: #2C3E50;
+    --color-light: #F8F6F1;
+}
+
+/* Base */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lobster Two', cursive;
+}
+
+/* Header */
+.site-header {
+    background: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Navigation */
+.main-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Boutons */
+.btn {
+    background-color: var(--color-accent);
+    color: var(--color-dark);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-highlight);
+    color: white;
+}
+
+/* WooCommerce customization */
+.woocommerce div.product {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 0.5rem;
+    }
+}
