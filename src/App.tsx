@@ -15,6 +15,23 @@ import { FAQ } from './pages/FAQ';
 import { Cart } from './pages/Cart';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
+import React from "react";
+import SnipcartProvider from "./components/SnipcartProvider";
+import Products from "./components/Products"; // Vérifie que ce fichier existe bien
+
+function App() {
+  return (
+    <div className="App">
+      <SnipcartProvider />
+      <h1>Bienvenue sur Ma Boutique</h1>
+      <button className="snipcart-checkout">Voir mon panier</button>
+      <Products />
+    </div>
+  );
+}
+
+export default App;
+
 
 function App() {
   return (

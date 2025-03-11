@@ -8,31 +8,9 @@
     <!-- Snipcart Script -->
     <script async src="https://cdn.snipcart.com/themes/v3.0.30/default/snipcart.js"></script>
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.30/default/snipcart.css" />
-
 </head>
 <body>
-    <header>
-        <h1>Bienvenue sur Ma Boutique</h1>
-        <button class="snipcart-checkout">Voir mon panier</button>
-    </header>
-
-    <section>
-        <h2>Nos Produits</h2>
-        <div class="product">
-            <h3>Produit Test</h3>
-            <p>Un super produit à acheter !</p>
-            <p>Prix : 29.99€</p>
-            <button class="snipcart-add-item"
-                data-item-id="produit-1"
-                data-item-name="Produit Test"
-                data-item-price="29.99"
-                data-item-url="/produit-1"
-                data-item-description="Une description du produit"
-                data-item-image="https://via.placeholder.com/150">
-                Ajouter au panier
-            </button>
-        </div>
-    </section>
+    <div id="root"></div> <!-- L'application React sera montée ici -->
 
     <!-- Snipcart Container avec Clé API -->
     <div hidden id="snipcart" data-api-key="NjNmMzljZWEtMDNkNC00ZjdmLTg2OTYtZWRiY2RkYzE4YmQ0NjM4NzQyMTEyMzcwODIxNjUw"></div>
